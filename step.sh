@@ -27,13 +27,6 @@ if [ -z "${bundle_version_short}" ] ; then
 fi
 
 # ---------------------
-# --- Configs:
-
-echo " (i) Provided Info.plist file path: ${info_plist_file}"
-echo " (i) Provided Bundle Version: ${bundle_version}"
-echo " (i) Provided Bundle Short Version String: ${bundle_version_short}"
-
-# ---------------------
 # --- Main:
 
 # verbose / debug print commands

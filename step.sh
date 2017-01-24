@@ -29,6 +29,17 @@ if [ -z "${append_version}" ] ; then
 fi
 
 # ---------------------
+# --- Original values:
+ORIGINAL_BUNDLE_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${info_plist_file}")"
+echo " (i) Original Bundle Version: $ORIGINAL_BUNDLE_VERSION"
+ORIGINAL_BUNDLE_SHORT_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${info_plist_file}")"
+echo " (i) Original Bundle Short Version String: $ORIGINAL_BUNDLE_SHORT_VERSION"
+
+# We populate the APP_ORIGINAL_VERSION and APP_ORIGINAL_BUILD with the current values
+envman add --key APP_ORIGINAL_VERSION --value "${ORIGINAL_BUNDLE_VERSION}"
+envman add --key APP_ORIGINAL_BUILD --value "${ORIGINAL_BUNDLE_SHORT_VERSION}"
+
+# ---------------------
 # --- Configs:
 
 echo " (i) Provided Info.plist file path: ${info_plist_file}"
@@ -53,16 +64,10 @@ if [ ! -z "${version_short_offset}" ] ; then
   bundle_version_short=$((${bundle_version_short} + ${version_short_offset}))
 fi
 
-ORIGINAL_BUNDLE_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${info_plist_file}")"
-echo " (i) Original Bundle Version: $ORIGINAL_BUNDLE_VERSION"
-ORIGINAL_BUNDLE_SHORT_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${info_plist_file}")"
-echo " (i) Original Bundle Short Version String: $ORIGINAL_BUNDLE_SHORT_VERSION"
-
 if [ "${append_version}" == "true" ]; then
 	echo " (i) Need append version"
 	bundle_version=${ORIGINAL_BUNDLE_VERSION}${bundle_version}
 fi
-
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${bundle_version}" "${info_plist_file}"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${bundle_version_short}" "${info_plist_file}"

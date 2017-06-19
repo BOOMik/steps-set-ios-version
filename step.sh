@@ -64,8 +64,8 @@ if [ "${append_version}" == "true" ]; then
 fi
 
 
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${bundle_version}" "${info_plist_file}"
-/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${bundle_version_short}" "${info_plist_file}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${bundle_version_short}" "${info_plist_file}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${bundle_version}" "${info_plist_file}"
 
 REPLACED_BUNDLE_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${info_plist_file}")"
 echo " (i) Replaced Bundle Version: $REPLACED_BUNDLE_VERSION"

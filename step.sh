@@ -81,8 +81,8 @@ bundle_version_short=${ORIGINAL_BUNDLE_SHORT_VERSION}
 fi
 
 
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${bundle_version}" "${info_plist_file}"
-/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${bundle_version_short}" "${info_plist_file}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${bundle_version_short}" "${info_plist_file}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${bundle_version}" "${info_plist_file}"
 
 REPLACED_BUNDLE_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${info_plist_file}")"
 echo " (i) Replaced Bundle Version: $REPLACED_BUNDLE_VERSION"
